@@ -12,7 +12,7 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
