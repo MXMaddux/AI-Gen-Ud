@@ -29,6 +29,8 @@ function TopNav() {
         )}
         <SignedOut>
           <SignInButton />
+
+          <div className="mr-2"></div>
           <SignUpButton />
         </SignedOut>
         <SignedIn>
