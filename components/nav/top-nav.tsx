@@ -19,7 +19,7 @@ function TopNav() {
   return (
     <nav className="flex justify-between items-center p-2 shadow">
       <Link href={"/"}>
-        <Image src={logo} alt="logo" width={40} height={40} priority />
+        <Image src={logo} alt="logo" width={50} height={50} priority />
       </Link>
       <div className="flex items-center">
         {isSignedIn && (
