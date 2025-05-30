@@ -17,15 +17,17 @@ function DashboardPage() {
   return (
     <div>
       <div className="p-10 mx-5 mb-5 rounded-lg bg-slate-200 dark:bg-slate-800 flex flex-col justify-center">
-        <h1 className="text-xl">What would you like to create today?</h1>
+        <h1 className="text-xl text-center">
+          What would you like to create today?
+        </h1>
 
         <div className="w-full flex justify-center">
-          <div className="flex gap-2 items-center p-2 border border-gray-300 dark: border-gray-700 shadow">
+          <div className="flex gap-2 items-center p-2 border border-gray-300 dark: border-gray-700 shadow-lg rounded-md bg-transparent my-5 w-[50%]">
             <Search className="text-primary" />
             <Input
               type="text"
               placeholder="Search"
-              className="bg-transparent w-full outline-none text-black dark: text-white placeholder-gray-400"
+              className="bg-transparent w-full outline-none text-black dark: text-white placeholder-gray-500 dark: placeholder-gray-400"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
