@@ -1,6 +1,6 @@
 "use client";
 
-import { runAi } from "@/actions/ai";
+import { runAi, saveQuery } from "@/actions/ai";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +14,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Editor } from "@toast-ui/react-editor";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 // Define the Template interface
 export interface Template {
@@ -41,6 +42,12 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
 
   // ref
   const editorRef = useRef<Editor | null>(null);
+
+  const { user } = useUser();
+  // console.log("useUser in SlugPage = ", user);
+
+  const email = user?.primaryEmailAddress?.emailAddress || "";
+  // console.log("Email from slug page: ", email);
 
   useEffect(() => {
     if (content && editorRef.current) {
@@ -75,12 +82,16 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
 
     try {
       const data = await runAi(t.aiPrompt + query);
-      // Ensure `data` is a valid string before setting it
+      console.log("AI Response:", data);
+
       if (data !== undefined) {
-        setContent(data);
+        setContent(data); // Set the content state
       } else {
         setContent("No content generated.");
       }
+
+      // Save the query after setting the content
+      await saveQuery(t, email, query, data || "No content generated.");
     } catch (error) {
       setContent("An error occurred. Please try again.");
       console.error(error);
