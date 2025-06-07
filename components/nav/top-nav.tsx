@@ -23,6 +23,7 @@ function TopNav() {
       <Link href={"/"}>
         <Image src={logo} alt="logo" width={60} height={60} priority />
       </Link>
+      <Link href={"/membership"}>🔥 Join free or $9.99/month</Link>
       <div className="flex items-center">
         {isSignedIn && (
           <Link href={"/dashboard"} className="mr-2">

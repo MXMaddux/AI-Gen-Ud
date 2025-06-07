@@ -3,9 +3,14 @@ import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import Image from "next/image";
 
-interface QueryResponse {
+interface Template {
+  name: string;
+  icon: string;
+}
+
+export interface QueryResponse {
   _id: string;
-  template: any;
+  template: Template;
   email: string;
   query: string;
   content: string;
@@ -13,7 +18,7 @@ interface QueryResponse {
   updatedAt: string;
 }
 
-interface Props {
+export interface Props {
   data: QueryResponse[];
 }
 

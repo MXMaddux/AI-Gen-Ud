@@ -15,25 +15,8 @@ import { Editor } from "@toast-ui/react-editor";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-
-// Define the Template interface
-export interface Template {
-  name: string;
-  slug: string;
-  icon: string;
-  desc: string;
-  category: string;
-  aiPrompt: string;
-  form: Form[];
-}
-
-// Define the Form interface
-export interface Form {
-  label: string;
-  field: string;
-  name: string;
-  required: boolean;
-}
+import { Template } from "@/utils/types";
+import { useUsage } from "@/context/usage";
 
 function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
   const [query, setQuery] = useState("");
@@ -42,6 +25,8 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
 
   // ref
   const editorRef = useRef<Editor | null>(null);
+
+  const { fetchUsage } = useUsage();
 
   const { user } = useUser();
   // console.log("useUser in SlugPage = ", user);
@@ -92,6 +77,7 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
 
       // Save the query after setting the content
       await saveQuery(t, email, query, data || "No content generated.");
+      fetchUsage();
     } catch (error) {
       setContent("An error occurred. Please try again.");
       console.error(error);
