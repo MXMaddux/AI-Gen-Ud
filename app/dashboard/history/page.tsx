@@ -36,6 +36,7 @@ export default function Page() {
       const res = (await getQueries(email, page, perPage)) as QueryResponse;
       setQueries(res.queries);
       setTotalPages(res.totalPages);
+      console.log(setPerPage);
     } catch (err) {
       console.error(err);
     } finally {
