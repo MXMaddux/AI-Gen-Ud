@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { usageCount } from "@/actions/ai";
-import { checkUserSusbcription } from "@/actions/stripe";
+import { checkUserSubscription } from "@/actions/stripe";
 import { useUser } from "@clerk/nextjs";
 
 interface UsageContextType {
@@ -36,9 +36,8 @@ export const UsageProvider = ({
 
   useEffect(() => {
     if (
-      count > 10000
-      // !subscribed &&
-      // count > Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
+      !subscribed &&
+      count > Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
     ) {
       setOpenModal(true);
     } else {
@@ -52,7 +51,7 @@ export const UsageProvider = ({
   };
 
   const fetchSubscription = async () => {
-    const response = await checkUserSusbcription();
+    const response = await checkUserSubscription();
     setSubscribed(response?.ok || false);
   };
 

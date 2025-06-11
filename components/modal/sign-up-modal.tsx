@@ -1,16 +1,16 @@
-import { useUsage } from "@/context/usage";
 import React from "react";
+import { useUsage } from "@/context/usage";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Button } from "../ui/button";
 
-function SignUpModal() {
+export default function SignUpModal() {
   const { openModal, setOpenModal } = useUsage();
 
   return (
@@ -26,8 +26,7 @@ function SignUpModal() {
           <br />
           <DialogDescription>
             <p>
-              🎉 Congrats! You have generated 10,000 words with our AI tool.
-              Amazing!
+              🎉 Congrats! You have generated 10,000 words with our AI tool.{" "}
             </p>
             <p>
               🔒 Ready to take your content creation to the next level? Upgrade
@@ -43,9 +42,10 @@ function SignUpModal() {
               💡 Don&apos;t let your creativity hit a wall. Upgrade now and keep
               the ideas flowing!
             </p>
+
             <div className="m-5 text-center">
-              <Link href={"/membership"}>
-                <Button>Join with Membership</Button>
+              <Link href="/membership">
+                <Button>Join Membership</Button>
               </Link>
             </div>
           </DialogDescription>
@@ -54,5 +54,3 @@ function SignUpModal() {
     </Dialog>
   );
 }
-
-export default SignUpModal;

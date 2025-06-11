@@ -26,7 +26,7 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
   // ref
   const editorRef = useRef<Editor | null>(null);
 
-  const { fetchUsage } = useUsage();
+  const { fetchUsage, subscribed, count } = useUsage();
 
   const { user } = useUser();
   // console.log("useUser in SlugPage = ", user);
@@ -131,12 +131,19 @@ function SlugPage({ params }: { params: Promise<{ slug: string }> }) {
                 )}
               </div>
             ))}
-            <Button type="submit" className="w-full py-6" disabled={loading}>
-              {loading ? (
-                <Loader2Icon className="animate-spin mr-2" />
-              ) : (
-                "Generate Content"
-              )}
+            <Button
+              type="submit"
+              className="w-full py-6"
+              disabled={
+                loading &&
+                count >= Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
+              }
+            >
+              {loading && <Loader2Icon className="animate-spin mr-2" />}
+              {subscribed ||
+              count < Number(process.env.NEXT_PUBLIC_FREE_TIER_USAGE)
+                ? "Generate Content"
+                : "Subscribe to generate more content"}
             </Button>
           </form>
         </div>
